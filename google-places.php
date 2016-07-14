@@ -30,9 +30,16 @@ function get_details($placeid) {
         return null;
     } else {
         $rating = $result->rating;
-        $reviews = $result->reviews;
+        $reviews_all = $result->reviews;
+        $reviews = array(); //tdClass();
+        foreach ($reviews_all as $i => $review) {
+            $reviews[$i] = new stdClass();
+            $reviews[$i]->author = array($review->author_name);
+            $reviews[$i]->rating = array($review->rating);
+            $reviews[$i]->text = array($review->text);
+        }
+        return array('rating' => $rating, 'reviews' => $reviews);
     }
-    return array('rating' => $rating, 'reviews' => $reviews);
 }
 
 if (php_sapi_name() == 'cli') {
