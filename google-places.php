@@ -1,8 +1,9 @@
 <?php
 
-define ('API_KEY', 'AIzaSyB72FnWTJQ4duHKk-54ZJRLp-_-LSzb-gU');
-define ('SEARCH_API', 'https://maps.googleapis.com/maps/api/place/textsearch/json');
-define ('DETAILS_API', 'https://maps.googleapis.com/maps/api/place/details/json');
+$config = parse_ini_file("google-places.ini");
+define ('API_KEY', $config['key']);
+define ('SEARCH_API', $config['search_api']);
+define ('DETAILS_API', $config['details_api']);
 
 function http_get($url, $params) {
     $params["key"] = API_KEY; 
