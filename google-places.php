@@ -52,7 +52,9 @@ if (php_sapi_name() == 'cli') {
 
 $place = get_place($query);
 $rnr = get_details($place['id']);
-
+if ($rnr == null) {
+	$rnr = array();
+}
 echo json_encode($place + $rnr);
 
 

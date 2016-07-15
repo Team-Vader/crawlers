@@ -8,14 +8,13 @@ app = Flask(__name__)
 @app.route('/zomato/<title>')
 def api(title=None):
 	try:
-	    list_of_params = {"q": title}
-			     # "lat": "19.913114", "lon": "75.347048"}
+	    list_of_params = {"q": title} #, "lat": "19.913114", "lon": "75.347048"}
 	    url_string = urllib.urlencode(list_of_params)
 	    url = "https://developers.zomato.com/api/v2.1/search?%s" % (url_string)
 	    req = urllib2.Request(url)
 	    req.add_header("user-key", "3a5ad6e553a4fcfeae795494f51c2f76")
 	    response = urllib2.urlopen(req)
-	    print " ======== " % response % " ============= "
+	    print response.read()
 	    json_data = json.load(response)
 	# res_id = json_data["results_found"]
 
