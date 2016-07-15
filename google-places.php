@@ -44,11 +44,10 @@ function get_details($placeid) {
 
 if (php_sapi_name() == 'cli') {
     if ($argc < 2) die("Missing query");
-    $query = $argv[1];
+    $query = "{$argv[1]} near {$argv[2]}";
 } else {
     if (!isset($_GET['q'])) die("Missing query");
-
-    $query = urlencode($_GET['q']);
+    $query = urlencode("{$_GET['q']} near {$_GET['place']}");
 }
 
 $place = get_place($query);
