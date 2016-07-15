@@ -16,7 +16,11 @@ function http_get($url, $params) {
 }
 
 function get_place($query) {
-    $result_json = json_decode( http_get(SEARCH_API, array("query" => $query) ));
+    $place_result = http_get(SEARCH_API, array("query" => $query) );
+    $result_json = json_decode( $place_result );
+    if (isset($result_json->error_message)) {
+        die($place_result);
+    }
     $place = $result_json->results[0];
     
     return array("name" => $place->name, "id" => $place->place_id, "address" => $place->formatted_address);
@@ -34,9 +38,9 @@ function get_details($placeid) {
         $reviews = array(); //tdClass();
         foreach ($reviews_all as $i => $review) {
             $reviews[$i] = new stdClass();
-            $reviews[$i]->author = array($review->author_name);
-            $reviews[$i]->rating = array($review->rating);
-            $reviews[$i]->text = array($review->text);
+            $reviews[$i]->author = $review->author_name;
+            $reviews[$i]->rating = $review->rating;
+            $reviews[$i]->text = $review->text;
         }
         return array('rating' => $rating, 'reviews' => $reviews);
     }
